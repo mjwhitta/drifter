@@ -1,8 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require "pathname"
-
 require_relative "DrifterConfig"
 
 # Vagrantfile API/syntax version. Don't touch unless you know what
@@ -56,32 +54,56 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     "--clipboard",
                     box.clipboard
                 ]
+
+                # Attach any specified iso files
+                if (box.iso) then
+                    vb.customize [
+                        "storageattach",
+                        :id,
+                        "--storagectl",
+                        "IDE",
+                        "--port",
+                        "1",
+                        "--device",
+                        "0",
+                        "--type",
+                        "dvddrive",
+                        "--medium",
+                        box.iso
+                    ]
+                end
             end
 
             # Provision private keys
-            box.priv_keys.each do |key|
-                if (key.end_with?(".upload"))
-                    vm.vm.provision "file" do |f|
-                        f.source = key
-                        priv = key.split("/")[-1].split(".")[0]
-                        f.destination = "~/.ssh/#{priv}"
+            if (box.priv_keys) then
+                box.priv_keys.each do |key|
+                    if (key.end_with?(".upload"))
+                        vm.vm.provision "file" do |f|
+                            f.source = key
+                            priv = key.split("/")[-1].split(".")[0]
+                            f.destination = "~/.ssh/#{priv}"
+                        end
                     end
                 end
             end
 
             # Provision public keys
-            box.pub_keys.each do |key|
-                config.vm.provision "file" do |f|
-                    f.source = key
-                    f.destination = "~/.ssh/#{key.split("/")[-1]}"
+            if (box.pub_keys) then
+                box.pub_keys.each do |key|
+                    config.vm.provision "file" do |f|
+                        f.source = key
+                        f.destination = "~/.ssh/#{key.split("/")[-1]}"
+                    end
                 end
             end
 
             # Provision scripts in numerical order
-            box.scripts.each do |script|
-                config.vm.provision "shell" do |s|
-                    s.path = script
-                    s.args = [box.username]
+            if (box.scripts) then
+                box.scripts.each do |script|
+                    config.vm.provision "shell" do |s|
+                        s.path = script
+                        s.args = [box.username]
+                    end
                 end
             end
         end

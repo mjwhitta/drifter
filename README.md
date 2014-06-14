@@ -42,12 +42,19 @@ ran as that user instead of root.
 Modify `DrifterConfig.rb`, then use the following command:
 
 ```sh
-    $ vagrant up
+$ vagrant up
 ```
 
 You can start from scratch by using the following commands:
 
 ```sh
-    $ vagrant destroy
-    $ vagrant up
+$ vagrant destroy
+$ vagrant up
 ```
+
+# Special cases
+
+If you want to use a box that only boots from an iso image, look at my
+tutorial in [iso_only_box].
+
+[iso_only_box]: src/master/docs/iso_only_box.md
