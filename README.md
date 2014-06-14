@@ -6,7 +6,7 @@ Drifter is my attempt at a universal Vagrant setup.
 
 ## SSH-key pairs
 
-You can add box configurations to the load() method in
+You can add box configurations to the `load()` method in
 `DrifterConfig.rb`. If the box file doesn't exist, it will not be
 used. This helps with the whole universal thing. You only need to
 specify the relatvie path to the box, although I recommend you specify
@@ -19,7 +19,7 @@ ssh-key pairs in them. You do not need to remove the vagrant insecure
 ssh-key pair. That will be done for you by one of the
 [scripts][authorized_keys]. Any public keys you create will be added
 to `~/.ssh/authorized_keys` on the boxes. Your private keys will only
-be uploaded if they end with ".upload". I did it this way for paranoid
+be uploaded if they end with `.upload`. I did it this way for paranoid
 people. Uploading the private key is opt-in.
 
 ## Provisioning scripts
@@ -39,7 +39,7 @@ ran as that user instead of root.
 
 # Usage
 
-Modify DrifterConfig.rb, then use the following command:
+Modify `DrifterConfig.rb`, then use the following command:
 
 ```sh
     $ vagrant up
