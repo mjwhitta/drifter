@@ -1,0 +1,10 @@
+# Ignore everything
+*
+# Except this file
+!.gitignore
+# And any provided scripts
+!05-bleeding_edge.sh
+!10-authorized_keys.sh
+# This allows custom scripts to be ignored by git unless the user
+# wants to version control them
+!sample_custom.sh

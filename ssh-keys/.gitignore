@@ -1,0 +1,9 @@
+# Ignore everything
+*
+# Except this file
+!.gitignore
+# And the insecure keys
+!vagrant
+!vagrant.pub
+# This allows for the addition of secure keys that git will ignore for
+# security purposes
