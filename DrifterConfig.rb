@@ -75,6 +75,7 @@ module DrifterConfig
         manjaro.cpus = "2"
         boxes.push(manjaro)
 
+        # Create Kali box
         kali = Box.new("boxes/kali-1.0.6-amd64.box", "kali")
         kali.memory = "2048"
         kali.cpus = "2"
