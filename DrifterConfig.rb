@@ -1,26 +1,26 @@
 require "pathname"
 
 class Box
-    attr_accessor :box
-    attr_accessor :name
-    attr_accessor :url
-    attr_accessor :headless
-    attr_accessor :username
-    attr_accessor :password
-    attr_accessor :shared
-    attr_accessor :priv_keys
-    attr_accessor :pub_keys
-    attr_accessor :scripts
-    attr_accessor :memory
-    attr_accessor :cpus
+    attr_accessor :accelerate3d
     attr_accessor :boot1
     attr_accessor :boot2
     attr_accessor :boot3
     attr_accessor :boot4
-    attr_accessor :vram
-    attr_accessor :accelerate3d
+    attr_accessor :box
     attr_accessor :clipboard
+    attr_accessor :cpus
+    attr_accessor :headless
     attr_accessor :iso
+    attr_accessor :memory
+    attr_accessor :name
+    attr_accessor :password
+    attr_accessor :priv_keys
+    attr_accessor :pub_keys
+    attr_accessor :scripts
+    attr_accessor :shared
+    attr_accessor :url
+    attr_accessor :username
+    attr_accessor :vram
 
     def initialize(box, name="")
         # Name for the box
@@ -35,11 +35,12 @@ class Box
         # URL or file path to box file
         @url = box
 
+        # Don't run headless by default
         @headless = false
 
         # SSH username and password
         @username = "vagrant"
-        @password = "vagrant"
+        @password = nil
 
         # Shared folders
         @shared = {"shared" => "/vagrant-shared"}
@@ -58,7 +59,7 @@ class Box
 
         # List of scripts to run when provisioning
         @scripts = Dir["scripts/[0-9]*.sh"]
-        @scripts.concat(Dir["scripts/#{name}/[0-9]*.sh"])
+        @scripts.concat(Dir["scripts/#{@name}/[0-9]*.sh"])
         @scripts.sort! do |a, b|
             a.split("/")[-1] <=> b.split("/")[-1]
         end
@@ -103,6 +104,7 @@ module DrifterConfig
         nebula.priv_keys = nil
         nebula.pub_keys = nil
         nebula.scripts = nil
+        nebula.shared = nil
         nebula.memory = "512"
         nebula.boot2 = "none"
         boxes.push(nebula)

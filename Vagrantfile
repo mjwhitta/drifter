@@ -20,13 +20,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
             # Configure ssh
             vm.ssh.username = box.username
+            if (box.password) then
+                vm.ssh.password = box.password
+            end
             vm.ssh.private_key_path = box.priv_keys
             vm.ssh.forward_x11 = true
 
             # Shared folders
             vm.vm.synced_folder(".", "/vagrant", disabled: true)
-            box.shared.each do |folder, path|
-                vm.vm.synced_folder(folder, path)
+            if (box.shared) then
+                box.shared.each do |folder, path|
+                    vm.vm.synced_folder(folder, path)
+                end
             end
 
             # Virtualbox settings
