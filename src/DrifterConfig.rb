@@ -2,6 +2,17 @@ require_relative "Box"
 require "pathname"
 
 module DrifterConfig
+    def self.existing_boxes(boxes)
+        # Remove boxes that don't exist
+        boxes.delete_if do |box|
+            is_http = box.url.start_with?("http")
+            exists_locally = Pathname.new(box.url).exist?
+            (!is_http && !exists_locally)
+        end
+
+        return boxes
+    end
+
     def self.load()
         boxes = Array.new
 
@@ -59,13 +70,6 @@ module DrifterConfig
         ### Create and add boxes above here ###
         #######################################
 
-        # Remove boxes that don't exist
-        boxes.delete_if do |box|
-            is_http = box.url.start_with?("http")
-            exists_locally = Pathname.new(box.url).exist?
-            (!is_http && !exists_locally)
-        end
-
-        return boxes
+        return existing_boxes(boxes)
     end
 end
