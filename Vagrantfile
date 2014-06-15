@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-require_relative "DrifterConfig"
+require_relative "src/DrifterConfig"
 
 # Vagrantfile API/syntax version. Don't touch unless you know what
 # you're doing!
