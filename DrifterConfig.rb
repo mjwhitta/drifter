@@ -94,7 +94,7 @@ module DrifterConfig
                           "manjaro")
         manjaro.memory = "2048"
         manjaro.cpus = "2"
-        boxes.push(manjaro)
+        #boxes.push(manjaro)
 
         # Create Nebula box
         nebula = Box.new("boxes/nebula.box")
@@ -108,6 +108,32 @@ module DrifterConfig
         nebula.memory = "512"
         nebula.boot2 = "none"
         boxes.push(nebula)
+
+        # Create Protostar box
+        protostar = Box.new("boxes/protostar.box")
+        protostar.headless = true
+        protostar.username = "user"
+        protostar.password = "user"
+        protostar.priv_keys = nil
+        protostar.pub_keys = nil
+        protostar.scripts = nil
+        protostar.shared = nil
+        protostar.memory = "512"
+        protostar.boot2 = "none"
+        boxes.push(protostar)
+
+        # Create Fusion box
+        fusion = Box.new("boxes/fusion.box")
+        fusion.headless = true
+        fusion.username = "fusion"
+        fusion.password = "godmode"
+        fusion.priv_keys = nil
+        fusion.pub_keys = nil
+        fusion.scripts = nil
+        fusion.shared = nil
+        fusion.memory = "512"
+        fusion.boot2 = "none"
+        boxes.push(fusion)
 
         #######################################
         ### Create and add boxes above here ###
