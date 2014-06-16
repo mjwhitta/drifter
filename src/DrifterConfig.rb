@@ -21,7 +21,7 @@ module DrifterConfig
         #######################################
 
         # Create Manjaro box
-        manjaro = Box.new("boxes/manjaro-0.8.9-openbox-x86_64.box",
+        manjaro = Box.new("boxes/manjaro-0.8.10-openbox-x86_64.box",
                           "manjaro")
         manjaro.memory = "2048"
         manjaro.cpus = "2"
