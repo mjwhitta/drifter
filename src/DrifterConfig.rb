@@ -25,17 +25,21 @@ module DrifterConfig
                           "manjaro")
         manjaro.memory = "2048"
         manjaro.cpus = "2"
-        #boxes.push(manjaro)
+        boxes.push(manjaro)
+
+        # Create Kali box
+        kali = Box.new("boxes/kali-linux-1.0.7-amd64.box", "kali")
+        kali.username = "root"
+        kali.memory = "2048"
+        kali.cpus = "2"
+        boxes.push(kali)
 
         # Create Nebula box
         nebula = Box.new("boxes/nebula.box")
         nebula.headless = true
         nebula.username = "nebula"
         nebula.password = "nebula"
-        nebula.priv_keys = nil
-        nebula.pub_keys = nil
-        nebula.scripts = nil
-        nebula.shared = nil
+        nebula.set_iso_only
         nebula.memory = "512"
         nebula.boot2 = "none"
         boxes.push(nebula)
@@ -45,10 +49,7 @@ module DrifterConfig
         protostar.headless = true
         protostar.username = "user"
         protostar.password = "user"
-        protostar.priv_keys = nil
-        protostar.pub_keys = nil
-        protostar.scripts = nil
-        protostar.shared = nil
+        protostar.set_iso_only
         protostar.memory = "512"
         protostar.boot2 = "none"
         boxes.push(protostar)
@@ -58,10 +59,7 @@ module DrifterConfig
         fusion.headless = true
         fusion.username = "fusion"
         fusion.password = "godmode"
-        fusion.priv_keys = nil
-        fusion.pub_keys = nil
-        fusion.scripts = nil
-        fusion.shared = nil
+        fusion.set_iso_only
         fusion.memory = "512"
         fusion.boot2 = "none"
         boxes.push(fusion)

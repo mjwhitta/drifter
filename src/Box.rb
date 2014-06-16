@@ -79,4 +79,11 @@ class Box
         # mounts the iso b/c that can't be done here.
         @iso = nil
     end
+
+    def set_iso_only()
+        @priv_keys = nil
+        @pub_keys = nil
+        @scripts = nil
+        @shared = nil
+    end
 end
