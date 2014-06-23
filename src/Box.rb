@@ -1,25 +1,64 @@
 require "pathname"
 
 class Box
+    # string - on/off, 3D graphics enabled
     attr_accessor :accelerate3d
+
+    # string - disk/dvd/none
     attr_accessor :boot1
     attr_accessor :boot2
     attr_accessor :boot3
     attr_accessor :boot4
+
+    # string - box name
     attr_accessor :box
+
+    # string - Bidirectional/Disabled
     attr_accessor :clipboard
+
+    # integer - technically string
     attr_accessor :cpus
+
+    # boolean
     attr_accessor :headless
+
+    # string - path to iso file
     attr_accessor :iso
+
+    # integer - technically string, RAM in MB
     attr_accessor :memory
+
+    # string - name in VirtualBox
     attr_accessor :name
+
+    # string - ssh password
     attr_accessor :password
+
+    # array of string
     attr_accessor :priv_keys
+
+    # string - IP address on private network
+    attr_accessor :private_ip
+
+    # array of string
     attr_accessor :pub_keys
+
+    # boolean - on public network
+    attr_accessor :public
+
+    # array of string
     attr_accessor :scripts
+
+    # hash of string to string
     attr_accessor :shared
+
+    # string - where to get box
     attr_accessor :url
+
+    # string - ssh username
     attr_accessor :username
+
+    # integer - technically string, VRAM in MB
     attr_accessor :vram
 
     def initialize(box, name="")
@@ -78,12 +117,32 @@ class Box
         # your box, you will also need to package a Vagrantfile that
         # mounts the iso b/c that can't be done here.
         @iso = nil
+
+        # Default to not on public network
+        @public = false
+
+        # Default to not on private network
+        @private_ip = nil
     end
 
     def set_iso_only()
-        @priv_keys = nil
-        @pub_keys = nil
-        @scripts = nil
+        to_delete = Dir["ssh-keys/*"].delete_if do |k|
+            k.end_with?(".pub") || Pathname(k).directory?
+        end
+        @priv_keys.delete_if do |key|
+            to_delete.include?(key)
+        end
+
+        to_delete = Dir["ssh-keys/*.pub"]
+        @pub_keys.delete_if do |key|
+            to_delete.include?(key)
+        end
+
+        to_delete = Dir["scripts/[0-9]*.sh"]
+        @scripts.delete_if do |script|
+            to_delete.include?(script)
+        end
+
         @shared = nil
     end
 end

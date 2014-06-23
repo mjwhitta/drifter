@@ -111,6 +111,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
                     end
                 end
             end
+
+            # Networking
+            if (box.public) then
+                vm.vm.network "public_network"
+            end
+            if (box.private_ip) then
+                vm.vm.network "private_network", ip: box.private_ip
+            end
         end
     end
 end

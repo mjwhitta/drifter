@@ -2,14 +2,10 @@
 
 ## Setup
 
-Create your VM in VirtualBox. Then create a Vagrant file like the one
-in the next section. When you are ready, run the following command:
+Create your VM in VirtualBox. Then create a `Vagrantfile` and
+`passwordless_sudo.sh` like those below:
 
-```sh
-$ vagrant package --vagrantfile Vagrantfile --include /path/to/iso --base VMNAME
-```
-
-## Sample Vagrantfile
+### Sample `Vagrantfile`
 
 ```ruby
 # -*- mode: ruby -*-
@@ -20,7 +16,7 @@ Vagrant.configure("2") do |config|
 
     # Virtualbox settings
     config.vm.provider "virtualbox" do |vb|
-        # Attach any specified iso files
+        # Attach specified iso file
         vb.customize [
             "storageattach",
             :id,
@@ -36,5 +32,34 @@ Vagrant.configure("2") do |config|
             iso
         ]
     end
+
+    # Give passwordless sudo since booting from iso
+    config.vm.provision "shell", run: "always" do |s|
+        s.privileged = false
+        s.path = File.expand_path("../passwordless_sudo.sh", __FILE__)
+    end
 end
+```
+
+### Sample `passwordless_sudo.sh`
+
+```sh
+#!/usr/bin/env bash
+
+echo "username ALL=(ALL) NOPASSWD: ALL" > /tmp/username
+chmod 440 /tmp/username
+echo "password" | sudo -S cp /tmp/username /etc/sudoers.d/
+rm /tmp/username
+```
+
+## Package box file
+
+After the setup is finished, the box can be packaged using the
+following command:
+
+```sh
+$ vagrant package \
+    --vagrantfile Vagrantfile \
+    --include /path/to/iso,/path/to/passwordless_sudo.sh \
+    --base VMNAME
 ```

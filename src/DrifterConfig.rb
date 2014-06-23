@@ -47,8 +47,8 @@ module DrifterConfig
         # Create Protostar box
         protostar = Box.new("boxes/protostar.box")
         protostar.headless = true
-        protostar.username = "user"
-        protostar.password = "user"
+        protostar.username = "root"
+        protostar.password = "godmode"
         protostar.set_iso_only
         protostar.memory = "512"
         protostar.boot2 = "none"
