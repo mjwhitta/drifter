@@ -22,9 +22,9 @@ to `~/.ssh/authorized_keys` on the boxes. Your private keys will only
 be uploaded if they end with `.upload`. I did it this way for paranoid
 people. Uploading the private key is opt-in.
 
-[authorized_keys]: drifter/src/master/scripts/10-authorized_keys.sh
-[DrifterConfig.rb]: drifter/src/master/src/DrifterConfig.rb
-[ssh-keys]: drifter/src/master/ssh-keys
+[authorized_keys]: https://bitbucket.org/mjwhitta/drifter/src/master/scripts/10-authorized_keys.sh
+[DrifterConfig.rb]: https://bitbucket.org/mjwhitta/drifter/src/master/src/DrifterConfig.rb
+[ssh-keys]: https://bitbucket.org/mjwhitta/drifter/src/master/ssh-keys
 
 ## Provisioning scripts
 
@@ -36,8 +36,8 @@ can be found in [sample]. All custom scripts are passed the box's
 username as the first and only parameter. This allows the script to be
 ran as that user instead of root.
 
-[sample]: drifter/src/master/scripts/sample_custom.sh
-[scripts]: drifter/src/master/scripts
+[sample]: https://bitbucket.org/mjwhitta/drifter/src/master/scripts/sample_custom.sh
+[scripts]: https://bitbucket.org/mjwhitta/drifter/src/master/scripts
 
 # Usage
 
@@ -59,4 +59,4 @@ $ vagrant up
 If you want to use a box that only boots from an iso image, look at my
 tutorial in [iso_only_box].
 
-[iso_only_box]: drifter/src/master/docs/iso_only_box.md
+[iso_only_box]: https://bitbucket.org/mjwhitta/drifter/src/master/docs/iso_only_box.md
