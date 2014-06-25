@@ -4,55 +4,61 @@ class Box
     # string - on/off, 3D graphics enabled
     attr_accessor :accelerate3d
 
-    # string - disk/dvd/none
+    # string - disk/dvd/none, boot order
     attr_accessor :boot1
     attr_accessor :boot2
     attr_accessor :boot3
     attr_accessor :boot4
 
-    # string - box name
+    # string - box name in vagrant
     attr_accessor :box
 
     # string - Bidirectional/Disabled
     attr_accessor :clipboard
 
-    # integer - technically string
+    # integer - technically string, number of cpus
     attr_accessor :cpus
 
-    # boolean
+    # hash of integer to integer - forward_ports[guest] = host
+    attr_accessor :forward_ports
+
+    # boolean - run headless or not
     attr_accessor :headless
 
-    # string - path to iso file
+    # string - path to iso file, used for mounting a local iso
+    # NOTE: If you packaged an iso in your box, you will also need to
+    # package a Vagrantfile that mounts the iso b/c that can't be done
+    # here
     attr_accessor :iso
 
     # integer - technically string, RAM in MB
     attr_accessor :memory
 
-    # string - name in VirtualBox
+    # string - name that shows in VirtualBox
     attr_accessor :name
 
     # string - ssh password
     attr_accessor :password
 
-    # array of string
+    # array of string - list of private keys to use
     attr_accessor :priv_keys
 
     # string - IP address on private network
     attr_accessor :private_ip
 
-    # array of string
+    # array of string - list of public keys to upload
     attr_accessor :pub_keys
 
-    # boolean - on public network
+    # boolean - should box have a public IP address
     attr_accessor :public
 
-    # array of string
+    # array of string - list of provisioning scripts
     attr_accessor :scripts
 
-    # hash of string to string
+    # hash of string to string - shared[local] = remote
     attr_accessor :shared
 
-    # string - where to get box
+    # string - where to get box, url or filepath
     attr_accessor :url
 
     # string - ssh username
@@ -62,29 +68,37 @@ class Box
     attr_accessor :vram
 
     def initialize(box, name="")
-        # Name for the box
+        @accelerate3d = "on"
+
+        @boot1 = "dvd"
+
+        @boot2 = "disk"
+
+        @boot3 = "none"
+
+        @boot4 = "none"
+
         @box = box.split("/")[-1].gsub(".box", "")
 
-        # Name that shows up in Virtualbox
-        @name = name
-        if (@name.empty?) then
-            @name = @box.split("/")[-1].gsub(".box", "")
-        end
+        @clipboard = "Bidirectional"
 
-        # URL or file path to box file
-        @url = box
+        @cpus = "1"
 
-        # Don't run headless by default
+        @forward_ports = Hash.new
+
         @headless = false
 
-        # SSH username and password
-        @username = "vagrant"
+        @iso = nil
+
+        @memory = "1024"
+
+        @name = name
+        if (@name.empty?) then
+            @name = @box
+        end
+
         @password = nil
 
-        # Shared folders
-        @shared = {"shared" => "/vagrant-shared"}
-
-        # List of private keys
         @priv_keys = Dir["ssh-keys/*"].delete_if do |k|
             k.end_with?(".pub") || Pathname(k).directory?
         end
@@ -92,37 +106,26 @@ class Box
             k.end_with?(".pub") || Pathname(k).directory?
         end)
 
-        # List of public keys
+        @private_ip = nil
+
         @pub_keys = Dir["ssh-keys/*.pub"]
         @pub_keys.concat(Dir["ssh-keys/#{@name}/*.pub"])
 
-        # List of scripts to run when provisioning
+        @public = false
+
         @scripts = Dir["scripts/[0-9]*.sh"]
         @scripts.concat(Dir["scripts/#{@name}/[0-9]*.sh"])
         @scripts.sort! do |a, b|
             a.split("/")[-1] <=> b.split("/")[-1]
         end
 
-        @memory = "1024"
-        @cpus = "1"
-        @boot1 = "dvd"
-        @boot2 = "disk"
-        @boot3 = "none"
-        @boot4 = "none"
+        @shared = {"shared" => "/vagrant-shared"}
+
+        @url = box
+
+        @username = "vagrant"
+
         @vram = "64"
-        @accelerate3d = "on"
-        @clipboard = "Bidirectional"
-
-        # Used for mounting a local iso. If you packaged an iso in
-        # your box, you will also need to package a Vagrantfile that
-        # mounts the iso b/c that can't be done here.
-        @iso = nil
-
-        # Default to not on public network
-        @public = false
-
-        # Default to not on private network
-        @private_ip = nil
     end
 
     def set_iso_only()
@@ -143,6 +146,6 @@ class Box
             to_delete.include?(script)
         end
 
-        @shared = nil
+        @shared = Hash.new
     end
 end

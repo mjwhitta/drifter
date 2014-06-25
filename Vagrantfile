@@ -28,10 +28,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
             # Shared folders
             vm.vm.synced_folder(".", "/vagrant", disabled: true)
-            if (box.shared) then
-                box.shared.each do |folder, path|
-                    vm.vm.synced_folder(folder, path)
-                end
+            box.shared.each do |folder, path|
+                vm.vm.synced_folder(folder, path)
             end
 
             # Virtualbox settings
@@ -80,35 +78,29 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             end
 
             # Provision private keys
-            if (box.priv_keys) then
-                box.priv_keys.each do |key|
-                    if (key.end_with?(".upload"))
-                        vm.vm.provision "file" do |f|
-                            f.source = key
-                            priv = key.split("/")[-1].split(".")[0]
-                            f.destination = "~/.ssh/#{priv}"
-                        end
+            box.priv_keys.each do |key|
+                if (key.end_with?(".upload"))
+                    vm.vm.provision "file" do |f|
+                        f.source = key
+                        priv = key.split("/")[-1].split(".")[0]
+                        f.destination = "~/.ssh/#{priv}"
                     end
                 end
             end
 
             # Provision public keys
-            if (box.pub_keys) then
-                box.pub_keys.each do |key|
-                    config.vm.provision "file" do |f|
-                        f.source = key
-                        f.destination = "~/.ssh/#{key.split("/")[-1]}"
-                    end
+            box.pub_keys.each do |key|
+                config.vm.provision "file" do |f|
+                    f.source = key
+                    f.destination = "~/.ssh/#{key.split("/")[-1]}"
                 end
             end
 
             # Provision scripts in numerical order
-            if (box.scripts) then
-                box.scripts.each do |script|
-                    config.vm.provision "shell" do |s|
-                        s.path = script
-                        s.args = [box.username]
-                    end
+            box.scripts.each do |script|
+                config.vm.provision "shell" do |s|
+                    s.path = script
+                    s.args = [box.username]
                 end
             end
 
@@ -118,6 +110,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             end
             if (box.private_ip) then
                 vm.vm.network "private_network", ip: box.private_ip
+            end
+
+            # Forward ports
+            box.forward_ports.each do |guest, host|
+                vm.vm.network "forwarded_port",
+                              guest: guest,
+                              host: host
             end
         end
     end

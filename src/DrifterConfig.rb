@@ -32,6 +32,7 @@ module DrifterConfig
         kali.username = "root"
         kali.memory = "2048"
         kali.cpus = "2"
+        kali.private_ip = "10.1.1.2"
         boxes.push(kali)
 
         # Create Nebula box
@@ -42,6 +43,7 @@ module DrifterConfig
         nebula.set_iso_only
         nebula.memory = "512"
         nebula.boot2 = "none"
+        nebula.private_ip = "10.1.1.3"
         boxes.push(nebula)
 
         # Create Protostar box
@@ -52,6 +54,7 @@ module DrifterConfig
         protostar.set_iso_only
         protostar.memory = "512"
         protostar.boot2 = "none"
+        protostar.private_ip = "10.1.1.4"
         boxes.push(protostar)
 
         # Create Fusion box
@@ -62,6 +65,7 @@ module DrifterConfig
         fusion.set_iso_only
         fusion.memory = "512"
         fusion.boot2 = "none"
+        fusion.private_ip = "10.1.1.5"
         boxes.push(fusion)
 
         #######################################
