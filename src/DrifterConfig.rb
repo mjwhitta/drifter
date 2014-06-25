@@ -23,50 +23,57 @@ module DrifterConfig
         # Create Manjaro box
         manjaro = Box.new("boxes/manjaro-openbox-0.8.10-x86_64.box",
                           "manjaro")
-        manjaro.memory = "2048"
         manjaro.cpus = "2"
+        manjaro.memory = "2048"
         boxes.push(manjaro)
 
         # Create Kali box
         kali = Box.new("boxes/kali-linux-1.0.7-amd64.box", "kali")
-        kali.username = "root"
-        kali.memory = "2048"
         kali.cpus = "2"
-        kali.private_ip = "10.1.1.2"
+        kali.memory = "2048"
+        kali.username = "root"
         boxes.push(kali)
 
         # Create Nebula box
         nebula = Box.new("boxes/nebula.box")
+        nebula.boot2 = "none"
         nebula.headless = true
-        nebula.username = "nebula"
+        nebula.memory = "512"
         nebula.password = "nebula"
         nebula.set_iso_only
-        nebula.memory = "512"
-        nebula.boot2 = "none"
-        nebula.private_ip = "10.1.1.3"
+        nebula.username = "nebula"
         boxes.push(nebula)
 
         # Create Protostar box
         protostar = Box.new("boxes/protostar.box")
+        protostar.boot2 = "none"
         protostar.headless = true
-        protostar.username = "root"
+        protostar.memory = "512"
         protostar.password = "godmode"
         protostar.set_iso_only
-        protostar.memory = "512"
-        protostar.boot2 = "none"
-        protostar.private_ip = "10.1.1.4"
+        protostar.username = "root"
         boxes.push(protostar)
 
         # Create Fusion box
         fusion = Box.new("boxes/fusion.box")
+        fusion.boot2 = "none"
         fusion.headless = true
-        fusion.username = "fusion"
+        fusion.memory = "512"
         fusion.password = "godmode"
         fusion.set_iso_only
-        fusion.memory = "512"
-        fusion.boot2 = "none"
-        fusion.private_ip = "10.1.1.5"
+        fusion.username = "fusion"
         boxes.push(fusion)
+
+        # Create DevStack box
+        devstack = Box.new("boxes/devstack.box")
+        devstack.boot1 = "disk"
+        devstack.boot2 = "none"
+        devstack.cpus = "4"
+        devstack.forward_ports[80] = 8080
+        devstack.memory = "4098"
+        devstack.scripts = Hash.new
+        devstack.username = "user"
+        boxes.push(devstack)
 
         #######################################
         ### Create and add boxes above here ###
