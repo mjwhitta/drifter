@@ -146,6 +146,6 @@ class Box
             to_delete.include?(script)
         end
 
-        @shared = Hash.new
+        @shared = clear
     end
 end

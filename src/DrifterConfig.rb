@@ -36,7 +36,6 @@ module DrifterConfig
 
         # Create Nebula box
         nebula = Box.new("boxes/nebula.box")
-        nebula.boot2 = "none"
         nebula.headless = true
         nebula.memory = "512"
         nebula.password = "nebula"
@@ -46,7 +45,6 @@ module DrifterConfig
 
         # Create Protostar box
         protostar = Box.new("boxes/protostar.box")
-        protostar.boot2 = "none"
         protostar.headless = true
         protostar.memory = "512"
         protostar.password = "godmode"
@@ -56,7 +54,6 @@ module DrifterConfig
 
         # Create Fusion box
         fusion = Box.new("boxes/fusion.box")
-        fusion.boot2 = "none"
         fusion.headless = true
         fusion.memory = "512"
         fusion.password = "godmode"
@@ -66,12 +63,10 @@ module DrifterConfig
 
         # Create DevStack box
         devstack = Box.new("boxes/devstack.box")
-        devstack.boot1 = "disk"
-        devstack.boot2 = "none"
         devstack.cpus = "4"
         devstack.forward_ports[80] = 8080
         devstack.memory = "4098"
-        devstack.scripts = Hash.new
+        devstack.scripts.clear
         devstack.username = "user"
         boxes.push(devstack)
 
