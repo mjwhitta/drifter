@@ -32,7 +32,7 @@ module DrifterConfig
         boxes.push(manjaro)
 
         # Create Kali box
-        kali = Box.new("boxes/kali-linux-1.0.7-amd64.box", "kali")
+        kali = Box.new("mjwhitta/kali-linux-1.0.7-amd64", "kali")
         kali.cpus = "2"
         kali.memory = "2048"
         kali.username = "root"
