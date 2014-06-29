@@ -5,8 +5,12 @@ module DrifterConfig
     def self.existing_boxes(boxes)
         # Remove boxes that don't exist
         boxes.delete_if do |box|
-            is_http = box.url.start_with?("http")
-            exists_locally = Pathname.new(box.url).exist?
+            is_http = true
+            exists_locally = false
+            if (box.url) then
+                is_http = box.url.start_with?("http")
+                exists_locally = Pathname.new(box.url).exist?
+            end
             (!is_http && !exists_locally)
         end
 
@@ -35,7 +39,8 @@ module DrifterConfig
         boxes.push(kali)
 
         # Create Nebula box
-        nebula = Box.new("boxes/nebula.box")
+        nebula = Box.new("mjwhitta/exploit-exercises-nebula-5",
+                         "nebula")
         nebula.headless = true
         nebula.memory = "512"
         nebula.password = "nebula"
@@ -44,7 +49,8 @@ module DrifterConfig
         boxes.push(nebula)
 
         # Create Protostar box
-        protostar = Box.new("boxes/protostar.box")
+        protostar = Box.new("mjwhitta/exploit-exercises-protostar-2",
+                            "protostar")
         protostar.headless = true
         protostar.memory = "512"
         protostar.password = "godmode"
@@ -53,7 +59,8 @@ module DrifterConfig
         boxes.push(protostar)
 
         # Create Fusion box
-        fusion = Box.new("boxes/fusion.box")
+        fusion = Box.new("mjwhitta/exploit-exercises-fusion-2",
+                         "fusion")
         fusion.headless = true
         fusion.memory = "512"
         fusion.password = "godmode"

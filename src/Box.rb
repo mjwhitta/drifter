@@ -64,6 +64,9 @@ class Box
     # string - ssh username
     attr_accessor :username
 
+    # boolean - is the box hosted on vagrantcloud
+    attr_accessor :vagrantcloud
+
     # integer - technically string, VRAM in MB
     attr_accessor :vram
 
@@ -78,7 +81,13 @@ class Box
 
         @boot4 = "none"
 
-        @box = box.split("/")[-1].gsub(".box", "")
+        if (box.end_with?(".box")) then
+            @box = box.split("/")[-1].gsub(".box", "")
+            @vagrantcloud = false
+        else
+            @box = box
+            @vagrantcloud = true
+        end
 
         @clipboard = "Bidirectional"
 
@@ -94,7 +103,11 @@ class Box
 
         @name = name
         if (@name.empty?) then
-            @name = @box
+            if (@vagrantcloud) then
+                @name=@box.split("/")[-1]
+            else
+                @name = @box
+            end
         end
 
         @password = nil
@@ -121,7 +134,11 @@ class Box
 
         @shared = {"shared" => "/vagrant-shared"}
 
-        @url = box
+        if (!@vagrantcloud) then
+            @url = box
+        else
+            @url = nil
+        end
 
         @username = "vagrant"
 
@@ -146,6 +163,6 @@ class Box
             to_delete.include?(script)
         end
 
-        @shared = clear
+        @shared.clear
     end
 end

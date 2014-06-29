@@ -16,7 +16,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             vm.vm.box = box.box
 
             # Path to box
-            vm.vm.box_url = box.url
+            if (box.url) then
+                vm.vm.box_url = box.url
+            end
 
             # Configure ssh
             vm.ssh.username = box.username
