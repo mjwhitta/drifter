@@ -69,10 +69,11 @@ module DrifterConfig
         boxes.push(fusion)
 
         # Create DevStack box
-        devstack = Box.new("boxes/devstack.box")
-        devstack.cpus = "4"
+        devstack = Box.new("mjwhitta/openstack-dev-devstack",
+                           "devstack")
+        devstack.cpus = "2"
         devstack.forward_ports[80] = 8080
-        devstack.memory = "4098"
+        devstack.memory = "2048"
         devstack.scripts.clear
         devstack.username = "user"
         boxes.push(devstack)
