@@ -72,11 +72,19 @@ module DrifterConfig
         devstack = Box.new("mjwhitta/openstack-dev-devstack",
                            "devstack")
         devstack.cpus = "2"
-        devstack.forward_ports[80] = 8080
+        devstack.forward_ports[80] = 8001
         devstack.memory = "2048"
         devstack.scripts.clear
         devstack.username = "user"
         boxes.push(devstack)
+
+        # Create WebGoat box
+        webgoat = Box.new("mjwhitta/owasp-webgoat", "webgoat")
+        webgoat.forward_ports[8080] = 8002
+        webgoat.headless = true
+        webgoat.scripts.clear
+        webgoat.username = "user"
+        boxes.push(webgoat)
 
         #######################################
         ### Create and add boxes above here ###
