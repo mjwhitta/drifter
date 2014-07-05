@@ -1,28 +1,8 @@
-require_relative "Box"
-require "pathname"
+require_relative "src/Box"
 
 module DrifterConfig
-    def self.existing_boxes(boxes)
-        # Remove boxes that don't exist
-        boxes.delete_if do |box|
-            is_http = true
-            exists_locally = false
-            if (box.url) then
-                is_http = box.url.start_with?("http")
-                exists_locally = Pathname.new(box.url).exist?
-            end
-            (!is_http && !exists_locally)
-        end
-
-        return boxes
-    end
-
-    def self.load()
+    def self.get()
         boxes = Array.new
-
-        #######################################
-        ### Create and add boxes below here ###
-        #######################################
 
         # Create Manjaro box
         manjaro = Box.new("boxes/manjaro-openbox-0.8.10-x86_64.box",
@@ -86,10 +66,6 @@ module DrifterConfig
         webgoat.username = "user"
         boxes.push(webgoat)
 
-        #######################################
-        ### Create and add boxes above here ###
-        #######################################
-
-        return existing_boxes(boxes)
+        return boxes
     end
 end
