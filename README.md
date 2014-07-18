@@ -56,7 +56,7 @@ that user instead of root.
 
 # Usage
 
-Modify `DrifterConfig.rb`, then use the following command:
+Create your configuration file, then use the following command:
 
 ```sh
 $ vagrant up
