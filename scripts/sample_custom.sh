@@ -26,7 +26,7 @@ echo "IdentityFile ~/.ssh/vagrantvm" >> .ssh/config
 
 # Add BitBucket to known_hosts
 echo "blah host key blah" >> .ssh/known_hosts
-    
+
 # Clone my dotfiles
 git clone git@bitbucket.org:username/dotfiles.git
 

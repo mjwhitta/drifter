@@ -4,12 +4,19 @@ Drifter is my attempt at a universal Vagrant setup.
 
 # Setup
 
+## Installation
+
+```bash
+$ cd && git clone https://bitbucket.org/mjwhitta/drifter.git .drifter
+$ cd .drifter && ./install_drifter.sh
+```
+
 ## Configuration
 
 To start your own drifter configuration, use the following command:
 
 ```bash
-cp DrifterConfig.rb ${USER}Config.rb
+$ cp DrifterConfig.rb ${USER}Config.rb
 ```
 
 Open `${USER}Config.rb` and add box configurations to the `get()`
@@ -58,16 +65,19 @@ that user instead of root.
 
 Create your configuration file, then use the following command:
 
-```sh
-$ vagrant up
+```bash
+$ drift up
 ```
 
 You can start from scratch by using the following commands:
 
-```sh
-$ vagrant destroy
-$ vagrant up
+```bash
+$ drift destroy
+$ drift up
 ```
+
+All `vagrant` commands will work. `drift` is just a ruby wrapper for
+`vagrant` that executes commands from the `~/.drifter` directory.
 
 # Special cases
 
