@@ -12,7 +12,7 @@ mkdir -p ~/bin && cd ~/bin
 
 # Copy executable
 if [ ! -h ~/bin/drift ]; then
-    ln -s ~/.drifter/drift.rb drift
+    ln -s ~/.drifter/drift.sh drift
 fi
 
 echo "done!"
