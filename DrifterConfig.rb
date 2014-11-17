@@ -5,11 +5,11 @@ module DrifterConfig
         boxes = Array.new
 
         # Create Manjaro box
-        manjaro = Box.new("boxes/manjaro-openbox-0.8.10-x86_64.box",
-                          "manjaro")
-        manjaro.cpus = "2"
-        manjaro.memory = "2048"
-        boxes.push(manjaro)
+        # manjaro = Box.new("boxes/manjaro-openbox-0.8.10-x86_64.box",
+        #                   "manjaro")
+        # manjaro.cpus = "2"
+        # manjaro.memory = "2048"
+        # boxes.push(manjaro)
 
         # Create Kali box
         kali = Box.new("mjwhitta/kali-linux-1.0.7-amd64", "kali")
