@@ -8,26 +8,20 @@ Drifter is my attempt at a universal Vagrant setup.
 
 ```bash
 $ cd && git clone https://gitlab.com/mjwhitta/drifter.git .drifter
-$ cd .drifter && ./install_drifter.sh
+$ cd .drifter && ./install.sh
 ```
 
 ## Configuration
 
-To start your own drifter configuration, use the following command:
-
-```bash
-$ cp DrifterConfig.rb ${USER}Config.rb
-```
-
-Open `${USER}Config.rb` and add box configurations to the `get()`
-method. Use [DrifterConfig.rb](DrifterConfig.rb) as an example. If the
-box file doesn't exist, it will not be used. This helps with the whole
-universal thing. You only need to specify the relatvie path to the
-box, although I recommend you specify a name as well since you will
-need to use that name later, and the default name may not be very
-pretty. Boxes that are from [vagrantcloud] or some other http source
-will always be used since I can't check if they exist (or rather they
-should always exist if you used the right link).
+Open `~/.drifter/${USER}Config.rb` and add box configurations to the
+`get()` method. Use [DrifterConfig.rb](DrifterConfig.rb) as an
+example. If the box file doesn't exist, it will not be used. This
+helps with the whole universal thing. You only need to specify the
+relative path to the box, although I recommend you specify a name as
+well since you will need to use that name later, and the default name
+may not be very pretty. Boxes that are from [vagrantcloud] or some
+other http source will always be used since I can't check if they
+exist (or rather they should always exist if you used the right link).
 
 [vagrantcloud]: https://vagrantcloud.com
 
