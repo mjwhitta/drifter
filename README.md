@@ -7,7 +7,7 @@ Drifter is my attempt at a universal Vagrant setup.
 ## Installation
 
 ```bash
-$ cd && git clone https://gitlab.com/mjwhitta/drifter.git .drifter
+$ cd && git clone https://github.com/mjwhitta/drifter.git .drifter
 $ cd .drifter && ./install.sh
 ```
 
